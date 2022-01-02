@@ -2,6 +2,8 @@
 The following program calls an URL http://static.cricinfo.com/rss/livescores.xml and parse the **XML** response to retrieve the required data and save it to DB which can be later used for other operations.
 The project has been developed using *Spring Boot*, *Thymeleaf*, Spring Security, *MySQL*. 
 
+>NOTE: please execute the script "session-db-script.sql" in **resources** directory than run the program. 
+
 #### File Structure
 
 ```shell
