@@ -91,10 +91,10 @@ public class AppController {
         users.setPassword(helperFunctions.passwordEncoder().encode(users.getPassword()));
         System.out.println("Users: "+users.toString());
 
-        //users = appServices.saveUser(users);
+        users = appServices.saveUser(users);
 
 
-        return "create-user";
+        return "redirect:/create-user";
     }
 
     @GetMapping("/searchMatch")
