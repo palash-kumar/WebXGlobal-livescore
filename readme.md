@@ -80,3 +80,4 @@ All the collected data are mapped to two objects *Matches* and *ScoreTimeLine* a
 * **welcome** page contains details of all the ongoing or coming up matches, list of previous matches, search box to search matches which has been recorded.
 * **matchDetails** page contains specific details of a match which user has clicked on in welcome page or searched for, or selected from previous match list. This page also displays all the scores for that specific match. the scores and details are loaded using *DataTables, Serverside processing*.
  
+>Note: Password validation during signup is left out.

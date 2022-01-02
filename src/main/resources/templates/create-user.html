@@ -47,7 +47,7 @@
                         <div class="row justify-content-center">
 
                             <div class="col-md-4 col-sm-12">
-                                <button type="submit" class="btn btn-primary btn-block w-100 shadow">Submit</button>
+                                <button type="submit" id="userSubmit" class="btn btn-primary btn-block w-100 shadow">Submit</button>
                                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                             </div>
 
@@ -67,20 +67,51 @@
 <script th:src="@{/bootstrap-513/js/bootstrap.bundle.min.js}"></script>
 
 <script>
-    /*$(function () {
+    $(function () {
 
-        $("#createUser")
-        $("#password").on("change", function () {
-            if($("#password").val().length < 8)
+        $("#password").on("keyup change", function () {
+            if($("#password").val().length < 8){
+                //console.log($("#password").val().length)
                 return false;
+            }
         });
 
-        $("#cpassword").on("change", function () {
-            if($("#cpassword").val() === $("#password").val())
+        $("#cpassword").on("keyup change", function () {
+            if($("#cpassword").val().length < 8){
+                //console.log($("#password").val().length)
                 return false;
+            }
+            if($("#cpassword").val() != $("#password").val()){
+                //console.log("pass: "+($("#cpassword").val() === $("#password").val()));
+                return false;
+            }
+        });
+
+        $("#userSubmit").on("click", function (e){
+            e.preventDefault();
+            if($("#password").val().length > 8 && $("#cpassword").val().length > 8){
+                return false;
+            }
+            if($("#cpassword").val() != $("#password").val()){
+                //console.log("pass: "+($("#cpassword").val() === $("#password").val()));
+                return false;
+            }
+            console.log("length chk: "+($("#password").val().length > 8 && $("#cpassword").val().length > 8));
+            console.log("pass check: "+($("#cpassword").val() == $("#password").val()));
+            if(($("#password").val().length > 8 && $("#cpassword").val().length > 8) && $("#cpassword").val() == $("#password").val()){
+                console.log("Pass")
+                $("#createUser").submit();
+            }
+
+
         })
 
-    })*/
+
+        /*$("#cpassword").on("change", function () {
+
+        })
+*/
+    })
 </script>
 </body>
 </html>
