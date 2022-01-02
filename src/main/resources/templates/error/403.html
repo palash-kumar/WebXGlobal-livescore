@@ -1,0 +1,52 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">Maxim ERP</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <!-- Bootstrap 3.3.7 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+
+    <!-- custom -->
+    <link rel="stylesheet" href="/maestro.css" />
+
+    <title>Access Denied </title>
+  
+    <style>
+
+    </style>
+</head>
+<body style="background:#d2d6de">
+<section>
+<ol style="padding: 8px 15px;margin-bottom: 20px;list-style: none;background-color: #f5f5f5;border-radius: 4px;">
+	 <li style="display:inline"><a href="/dashboard"><i class="fa fa-home"></i> Home /</a></li>
+     <li style="display:inline"><a href="/dashboard"><i class="fa fa-user"></i>&nbsp; Dashboard</a></li>
+</ol>
+<div>
+    <div>
+        <div>
+            <div style="text-align:center;margin-top:1%;">
+            	<h1 style="color: coral">ACCESS DENIED</h1>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <button  class="btn btn-primary" th:onclick="window.history.back();">Go Back </button></a>
+        </div>
+    </div>
+        <!-- /.login-box-body -->
+</div>
+</section>
+
+
+
+<th:block layout:fragment="scripts">
+
+
+</th:block>
+</body>
+
+</html>

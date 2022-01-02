@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Match Details</title>
+
+</head>
+<body>
+
+<div class="container py-3" layout:fragment="content">
+    <div class="row justify-content-center">
+        <div th:replace="/fragments/allOngoingMatches"></div>
+    </div>
+
+    <div class="row justify-content-center mt-5 mb-2">
+        <div class="col-md-8">
+            <div th:replace="/fragments/matchCard"></div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped" id="scoreList">
+                <thead>
+                <tr>
+                    <th>Batting Team</th>
+                    <th>Over</th>
+                    <th>Score/Wicket</th>
+                    <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script layout:fragment="content-script">
+    $(function () {
+        $(".match-form").on("click",function(){
+            $("#"+this.id).submit();
+        });
+
+        load_data();
+
+        function load_data() {
+
+            var i = 0;
+            $("table#scoreList").DataTable({
+                autoWidth: false,
+                responsive:true,
+                ajax: {
+                    url: baseUrl+"listScore",
+                    data: {
+                        matchId: $("#matchId").val()
+                    },
+                    type: 'GET'
+                },
+                processing: true,
+                serverSide: true,
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    },
+                    'copy', 'csv', 'excel', 'print'
+                ],
+                columns: [
+                    {
+                        data: 'id',
+                        render: function (data, type, row) {
+
+                            return ++i;
+                        }
+                    },{
+                        data: 'battingTeam'
+                    },{
+                        data: 'scoreInfo'
+                    },{
+                        data: 'score'
+                    },{
+                        data: 'recordedAt'
+                    },
+
+                ],
+
+            });
+        }
+    });
+</script>
+</body>
+</html>

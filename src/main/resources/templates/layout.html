@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Coporate Hotspot</title>
+
+    <!-- Bootstrap 5.1.3 -->
+    <link rel="stylesheet" th:href="@{/bootstrap-513/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/select2/select2.css}"/>
+    <link rel="stylesheet" th:href="@{/plugins/DataTables/datatables.css}"/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var baseUrl = /*[[@{/}]]*/null;
+        /*]]>*/
+        /*var csrfToken = $("meta[name='_csrf']").attr("content");*/
+    </script>
+
+
+</head>
+<body  class="bg-light text-dark hold-transition sidebar-mini layout-fixed layout-navbar-fixed custom-background" >
+<div class="wrapper">
+    <!--<header class="main-header">
+    </header>-->
+    <div th:replace="/fragments/navigation"></div>
+
+    <div class="content-wrapper bg-light text-dark" th:style="'background-image:url( /images/webpage-background.png );'"><!-- content-wrapper-->
+
+        <section class="content"><!-- Main content -->
+
+            <div layout:fragment="content"></div>
+
+
+
+        </section><!-- ./main content -->
+
+    </div><!-- ./content-wrapper-->
+</div><!-- ./wrapper -->
+
+<!-- jQuery 3.6.0 -->
+<script th:src="@{/plugins/jQuery/jQuery-3.6.0.min.js}"></script>
+
+<script th:src="@{/bootstrap-513/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/plugins/select2/select2.full.min.js}"></script>
+<script th:src="@{/plugins/DataTables/jquery.spring-friendly.js}"></script>
+<script th:src="@{/plugins/DataTables/datatables.js}"></script>
+
+<script>
+    /*$(function (){
+        $('#scoreList').DataTable({
+            'responsive'  :	true,
+            'paging'      : true,
+            'lengthChange': true,
+            'searching'   : true,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : true
+        })
+    });*/
+    function searchResultTemplate_fn(repo){
+        var markup = "<div class='select2-result-repository clearfix'>" +
+            "<div class='select2-result-repository__meta'>" +
+            "<div class='select2-result-repository__title'>" + repo.text +"</div>";
+        markup +="</div></div>";
+        return markup;
+    }
+    function searchResultSelection_fn (repo) {
+        console.log("=>"+repo+"<=");
+        return  repo.text;  /*selected option for select 2*/
+
+    }
+    /* start search to select o*/
+    $('#c-search').select2({
+
+        ajax: {
+
+            url: baseUrl+"searchMatch",
+            type: "GET",
+            headers: {'X-XSRF-TOKEN': $("meta[name='_csrf']").attr("content")},
+
+            processResults: function (result) {
+                console.log(result);
+                return {
+                    results: result
+                };
+            }
+        },
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        minimumInputLength:1,
+        placeholder: "Search",
+        allowClear: true,
+        templateResult: searchResultTemplate_fn,
+        templateSelection: searchResultSelection_fn
+    });/* end search to selecte*/
+
+    setTimeout(function() {
+        location.reload();
+    }, 180000); // set to reload every 3 mins
+</script>
+<script layout:fragment="content-script"></script>
+</body>
+</html>

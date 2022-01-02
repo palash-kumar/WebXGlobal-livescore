@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+
+<div class="container py-3" layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row justify-content-center mb-2" th:each="match : ${matches}">
+                <div class="col-md-12">
+                    <form th:action="@{/matchDetails/{id}(id=${match.id})}" method="POST" class="match-form" th:id="${match.id}">
+
+                        <div th:replace="/fragments/matchCard"></div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 offset-md-2">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action " aria-current="true" th:each="matchc : ${finishedMatches}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <p class="mb-1 fw-bold">Previous matches</p>
+                    </div>
+
+                </a>
+                <a th:href="@{/matchDetails/{id}(id=${matchc.id})}" class="list-group-item list-group-item-action " aria-current="true" th:each="matchc : ${finishedMatches}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <p class="mb-1 fw-light"><span class="fw-bold" th:text="${matchc.teamA}"></span> <span th:if="${matchc.teamABatting}" class="text-danger fw-bold rounded-pill">*</span> <span th:if="${matchc.teamAMatchResult}" class="badge bg-primary">W</span> vs. <span class="fw-bold" th:text="${matchc.teamB}"></span> <span th:if="${matchc.teamBBatting}" class="text-danger fw-bold rounded-pill">*</span> <span th:if="${matchc.teamBMatchResult}" class="badge bg-primary">W</span></p>
+                    </div>
+                    <p class="mb-1"><p th:text="${matchc.matchDescription}"></p></p>
+                    <small >
+                        <span class="fw-bold">match:</span> <span th:text="${matchc.matchDate}"></span><br>
+                        <span class="fw-bold">last updated:</span> <span th:text="${matchc.updateTime}"></span>
+                    </small>
+                    <small ></small>
+                </a>
+            </div>
+            <table>
+                <tr th:each="match : ${matches}"><!--recent match list-->
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+<script layout:fragment="content-script">
+$(function () {
+    $(".match-form").on("click",function(){
+        $("#"+this.id).submit();
+    });
+});
+</script>
+</body>
+</html>

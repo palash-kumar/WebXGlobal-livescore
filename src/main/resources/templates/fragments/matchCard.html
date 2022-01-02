@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="text-danger" th:text="${match.matchStatus}"></h3>
+        <p th:text="${match.matchDescription}"></p>
+    </div>
+    <div class="card-body">
+        <input type="hidden" th:value="${match.id}" id="matchId">
+        <div class="row"><!-- teams and match details start -->
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12 pb-2">
+                        <img th:src="${match.teamAImage}" alt="" width="32px"> <span class="fw-bold" th:text="${match.teamA}"></span> <span th:if="${match.teamABatting}" class="text-danger fw-bold rounded-pill">*</span> <span th:if="${match.teamAMatchResult}" class="badge bg-primary">W</span>
+                    </div>
+                    <div class="col-md-12 pb-2">
+                        <img th:src="${match.teamBImage}" alt=""width="32px"> <span class="fw-bold" th:text="${match.teamB}"></span> <span th:if="${match.teamBBatting}" class="text-danger fw-bold rounded-pill">*</span> <span th:if="${match.teamBMatchResult}" class="badge bg-primary">W</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row" th:if="${!match.teamABatting && !match.teamAMatchResult&& !match.teamBBatting && !match.teamBMatchResult && match.prematchStat != null}">
+                    <div class="col-md-12">
+                        <h3 th:text="${match.prematchStat}"></h3>
+                    </div>
+                </div>
+                <div class="row" th:if="${match.teamAScore != null || match.teamBScore != null}">
+                    <div class="col-md-12" ><span th:if="${match.teamAScoreInfo != ''}" th:text="${match.teamAScoreInfo}"></span> <span th:if="${match.teamAScore != null}" class="fw-bold" th:text="${match.teamAScore}"></span></div>
+                    <div class="col-md-12" ><span th:if="${match.teamBScoreInfo != ''}" th:text="${match.teamBScoreInfo}"></span> <span th:if="${match.teamBScore != null}" class="fw-bold" th:text="${match.teamBScore}"></span></div>
+                </div>
+
+            </div>
+        </div><!-- ./teams and match details end -->
+        <div class="row pt-1 bg-light border border-light" th:if="${match.tossStat != ''}">
+            <div class="col-md-12"><span th:text="${match.tossStat}"></span></div>
+        </div>
+        <div class="row pt-1 bg-info" th:if="${match.description != ''}">
+            <div class="col-md-12"><span th:text="${match.description}"></span></div>
+        </div>
+        <div class="row pt-1 text-primary" th:if="${match.liveStat != ''}">
+            <div class="col-md-12"><span th:text="${match.liveStat}"></span></div>
+        </div>
+    </div>
+</div>
